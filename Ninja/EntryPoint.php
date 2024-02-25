@@ -1,4 +1,6 @@
 <?php
+namespace Ninja;
+
 class EntryPoint {
     public function __construct(private $website) {
     }
@@ -19,13 +21,13 @@ class EntryPoint {
             $controller = $this->website->getController($controllerName); 
            
             $page = $controller->$action(...$route);
-
+      
             $title = $page['title'];
 
             $variables = $page['variables'] ?? [];
             $output = $this->loadTemplate($page['template'], $variables);
             
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             $title = 'An error has occurred';
 
             $output = 'Database error: ' . $e->getMessage() . ' in ' .
